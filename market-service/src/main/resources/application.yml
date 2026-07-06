@@ -1,0 +1,27 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: market-service
+  datasource:
+    url: jdbc:h2:mem:tradex-market;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+tradex:
+  jwt:
+    issuer: tradex
+    secret: ${TRADEX_JWT_SECRET:change-this-development-secret-change-before-production}
+    access-token-minutes: 30
+    refresh-token-days: 7
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

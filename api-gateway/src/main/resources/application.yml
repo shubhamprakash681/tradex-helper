@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+tradex:
+  services:
+    auth: ${AUTH_SERVICE_URL:http://localhost:8081}
+    market: ${MARKET_SERVICE_URL:http://localhost:8082}
+  jwt:
+    issuer: tradex
+    secret: ${TRADEX_JWT_SECRET:change-this-development-secret-change-before-production}
+    access-token-minutes: 30
+    refresh-token-days: 7
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: Auth Service
+        url: /auth/v3/api-docs
+      - name: Market Service
+        url: /market/v3/api-docs
