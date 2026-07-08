@@ -22,9 +22,9 @@ public class JwtGatewayFilter implements GlobalFilter, Ordered {
             "/api/auth/login",
             "/api/auth/refresh",
             "/api/auth/logout",
-            "/swagger-ui",
-            "/webjars",
-            "/v3/api-docs",
+            "/swagger-ui", // for swagger-ui page
+            "/webjars/swagger-ui", // for swagger-ui resources
+            "/v3/api-docs", // for swagger-config and grouped api-docs
             "/auth/v3/api-docs",
             "/market/v3/api-docs");
 
