@@ -142,6 +142,8 @@ tradex/
 This repository is now scaffolded as a Maven multi-module Spring Boot microservice system:
 
 - `common-lib` – shared JWT utilities, JWT properties, principal model, and API error shape.
+- `config-server` – centralized Spring Cloud Config Server running on port `8888`, backed by `config-server/src/main/resources/config-repo`.
+- `discovery-server` – Eureka service registry running on port `8761`.
 - `api-gateway` – Spring Cloud Gateway running on port `8080`, with Java-based routes and a Java `GlobalFilter` that validates JWTs before forwarding protected `/api/**` traffic.
 - `auth-service` – authentication and user profile service running on port `8081`.
 - `market-service` – stock catalog/search service running on port `8082`.
@@ -173,13 +175,25 @@ Swagger UI is enabled from the first milestone:
 - Gateway Swagger UI: `http://localhost:8080/swagger-ui.html`
 - Auth service OpenAPI: `http://localhost:8080/auth/v3/api-docs`
 - Market service OpenAPI: `http://localhost:8080/market/v3/api-docs`
+- Eureka dashboard: `http://localhost:8761`
+- Config Server example: `http://localhost:8888/api-gateway/default`
 
 ## Local Run Commands
 
-Use the same `TRADEX_JWT_SECRET` value for all services.
+Start PostgreSQL first. The Spring services read database settings from the Config Server, which resolves them from `.env`.
 
 ```bash
-export TRADEX_JWT_SECRET="replace-with-a-strong-32-character-minimum-secret"
+docker compose up -d postgres_container pgadmin_container
+```
+
+Use the same `TRADEX_JWT_SECRET` value for all services. For local runs, `POSTGRES_HOST=localhost` and `POSTGRES_PORT=5431` match the Compose port mapping.
+
+```bash
+set -a
+source .env
+set +a
+mvn -pl config-server spring-boot:run
+mvn -pl discovery-server spring-boot:run
 mvn -pl auth-service spring-boot:run
 mvn -pl market-service spring-boot:run
 mvn -pl api-gateway spring-boot:run

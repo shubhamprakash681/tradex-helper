@@ -10,6 +10,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class JwtTokenService {
     private final JwtProperties properties;
@@ -17,7 +18,8 @@ public class JwtTokenService {
 
     public JwtTokenService(JwtProperties properties) {
         this.properties = properties;
-        this.signingKey = Keys.hmacShaKeyFor(padSecret(properties.getSecret()).getBytes(StandardCharsets.UTF_8));
+        validate(properties);
+        this.signingKey = Keys.hmacShaKeyFor(properties.getSecret().getBytes(StandardCharsets.UTF_8));
     }
 
     public String createAccessToken(Long userId, String email, List<String> roles) {
@@ -64,10 +66,25 @@ public class JwtTokenService {
                 .getPayload();
     }
 
-    private String padSecret(String secret) {
-        if (secret.length() >= 32) {
-            return secret;
+    private void validate(JwtProperties properties) {
+        if (isBlank(properties.getIssuer())) {
+            throw new IllegalStateException("Missing required configuration: tradex.jwt.issuer");
         }
-        return secret + "0".repeat(32 - secret.length());
+        if (isBlank(properties.getSecret())) {
+            throw new IllegalStateException("Missing required configuration: tradex.jwt.secret");
+        }
+        if (properties.getSecret().getBytes(StandardCharsets.UTF_8).length < 32) {
+            throw new IllegalStateException("Configuration tradex.jwt.secret must be at least 32 bytes for HS256 signing");
+        }
+        if (Objects.requireNonNullElse(properties.getAccessTokenMinutes(), 0L) <= 0) {
+            throw new IllegalStateException("Configuration tradex.jwt.access-token-minutes must be greater than zero");
+        }
+        if (Objects.requireNonNullElse(properties.getRefreshTokenDays(), 0L) <= 0) {
+            throw new IllegalStateException("Configuration tradex.jwt.refresh-token-days must be greater than zero");
+        }
+    }
+
+    private boolean isBlank(String value) {
+        return value == null || value.isBlank();
     }
 }

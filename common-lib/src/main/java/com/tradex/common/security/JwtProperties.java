@@ -4,10 +4,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "tradex.jwt")
 public class JwtProperties {
-    private String issuer = "tradex";
-    private String secret = "change-this-development-secret-change-before-production";
-    private long accessTokenMinutes = 30;
-    private long refreshTokenDays = 7;
+    private String issuer;
+    private String secret;
+    private Long accessTokenMinutes;
+    private Long refreshTokenDays;
 
     public String getIssuer() {
         return issuer;
@@ -25,19 +25,19 @@ public class JwtProperties {
         this.secret = secret;
     }
 
-    public long getAccessTokenMinutes() {
+    public Long getAccessTokenMinutes() {
         return accessTokenMinutes;
     }
 
-    public void setAccessTokenMinutes(long accessTokenMinutes) {
+    public void setAccessTokenMinutes(Long accessTokenMinutes) {
         this.accessTokenMinutes = accessTokenMinutes;
     }
 
-    public long getRefreshTokenDays() {
+    public Long getRefreshTokenDays() {
         return refreshTokenDays;
     }
 
-    public void setRefreshTokenDays(long refreshTokenDays) {
+    public void setRefreshTokenDays(Long refreshTokenDays) {
         this.refreshTokenDays = refreshTokenDays;
     }
 }

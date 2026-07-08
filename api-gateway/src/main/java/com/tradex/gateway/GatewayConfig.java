@@ -17,8 +17,8 @@ public class GatewayConfig {
 
     @Bean
     RouteLocator tradexRoutes(RouteLocatorBuilder builder,
-                              @Value("${tradex.services.auth}") String authServiceUrl,
-                              @Value("${tradex.services.market}") String marketServiceUrl) {
+                              @Value("${tradex.services.auth:lb://auth-service}") String authServiceUrl,
+                              @Value("${tradex.services.market:lb://market-service}") String marketServiceUrl) {
         return builder.routes()
                 .route("auth-api", route -> route
                         .path("/api/auth/**", "/api/users/**")
