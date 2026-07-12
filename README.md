@@ -148,6 +148,14 @@ This repository is now scaffolded as a Maven multi-module Spring Boot microservi
 - `auth-service` – authentication and user profile service running on port `8081`.
 - `market-service` – stock catalog/search service running on port `8082`.
 
+## Completed: Milestone 2 – Paper Trading
+
+- `portfolio-service` – virtual portfolio, holdings, paper buy/sell orders, and transaction ledger service running on port `8083`.
+- Users receive a virtual cash account on first portfolio access.
+- Buy and sell orders are executed immediately using the current `market-service` stock `referencePrice`.
+- Holdings track quantity, average price, market value, and unrealized P/L.
+- Order history and transaction history are stored per authenticated user.
+
 ## Milestone 1 APIs
 
 Gateway base URL: `http://localhost:8080`
@@ -168,6 +176,16 @@ Stock APIs:
 - `GET /api/stocks/{symbol}`
 - `GET /api/stocks/search?q=`
 
+Paper trading APIs:
+
+- `GET /portfolio`
+- `GET /portfolio/summary`
+- `GET /portfolio/holdings`
+- `POST /orders/buy`
+- `POST /orders/sell`
+- `GET /orders/history`
+- `GET /transactions`
+
 ## API Documentation
 
 Swagger UI is enabled from the first milestone:
@@ -175,6 +193,7 @@ Swagger UI is enabled from the first milestone:
 - Gateway Swagger UI: `http://localhost:8080/swagger-ui.html`
 - Auth service OpenAPI: `http://localhost:8080/auth/v3/api-docs`
 - Market service OpenAPI: `http://localhost:8080/market/v3/api-docs`
+- Portfolio service OpenAPI: `http://localhost:8080/portfolio/v3/api-docs`
 - Eureka dashboard: `http://localhost:8761`
 - Config Server example: `http://localhost:8888/api-gateway/default`
 
@@ -196,6 +215,7 @@ mvn -pl config-server spring-boot:run
 mvn -pl discovery-server spring-boot:run
 mvn -pl auth-service spring-boot:run
 mvn -pl market-service spring-boot:run
+mvn -pl portfolio-service spring-boot:run
 mvn -pl api-gateway spring-boot:run
 ```
 
