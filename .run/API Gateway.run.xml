@@ -3,7 +3,7 @@
     <option name="envFilePaths">
       <option value="$PROJECT_DIR$/.env" />
     </option>
-    <option name="MAIN_CLASS_NAME" value="com.tradex.gateway.ApiGatewayApplication" />
+    <option name="MAIN_CLASS_NAME" value="in.shubhamprakash681.api_gateway.ApiGatewayApplication" />
     <module name="api-gateway" />
     <method v="2">
       <option name="Make" enabled="true" />

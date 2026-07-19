@@ -1,5 +1,5 @@
 server:
-  port: ${PORTFOLIO_SERVICE_PORT:8083}
+  port: ${PORTFOLIO_SERVICE_PORT}
 
 spring:
   datasource:
@@ -16,5 +16,6 @@ spring:
 tradex:
   trading:
     starting-cash: ${TRADEX_STARTING_CASH:1000000.00}
-  services:
-    market-url: ${MARKET_SERVICE_URL:http://localhost:8082}
+
+springdoc:
+  packages-to-scan: in.shubhamprakash681.portfolio_service.controllers

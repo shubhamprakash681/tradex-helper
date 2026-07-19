@@ -3,7 +3,7 @@
     <option name="envFilePaths">
       <option value="$PROJECT_DIR$/.env" />
     </option>
-    <option name="MAIN_CLASS_NAME" value="com.tradex.auth.AuthServiceApplication" />
+    <option name="MAIN_CLASS_NAME" value="in.shubhamprakash681.auth_service.AuthServiceApplication" />
     <module name="auth-service" />
     <method v="2">
       <option name="Make" enabled="true" />

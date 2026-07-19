@@ -3,7 +3,7 @@
     <option name="envFilePaths">
       <option value="$PROJECT_DIR$/.env" />
     </option>
-    <option name="MAIN_CLASS_NAME" value="com.tradex.market.MarketServiceApplication" />
+    <option name="MAIN_CLASS_NAME" value="in.shubhamprakash681.market_service.MarketServiceApplication" />
     <module name="market-service" />
     <method v="2">
       <option name="Make" enabled="true" />

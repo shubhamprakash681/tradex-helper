@@ -24,3 +24,7 @@ springdoc:
         url: /market/v3/api-docs
       - name: Portfolio Service
         url: /portfolio/v3/api-docs
+
+
+test:
+  my-name: api-default
