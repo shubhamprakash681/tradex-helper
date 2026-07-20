@@ -2,7 +2,6 @@ package in.shubhamprakash681.api_gateway;
 
 
 import in.shubhamprakash681.common_lib.security.JwtTokenService;
-import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -20,7 +19,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class JwtGatewayFilter implements GlobalFilter, Ordered {
     private static final List<String> PUBLIC_PATHS = List.of(
             "/api/auth/signup",
@@ -32,9 +30,15 @@ public class JwtGatewayFilter implements GlobalFilter, Ordered {
             "/v3/api-docs", // for swagger-config and grouped api-docs
             "/auth/v3/api-docs",
             "/market/v3/api-docs",
-            "/portfolio/v3/api-docs");
+            "/portfolio/v3/api-docs",
+            "/prices/v3/api-docs",
+            "/ws");
 
     private final JwtTokenService jwtTokenService;
+
+    public JwtGatewayFilter(JwtTokenService jwtTokenService) {
+        this.jwtTokenService = jwtTokenService;
+    }
 
     private boolean isPublic(String path) {
         return PUBLIC_PATHS.stream().anyMatch(path::startsWith);
