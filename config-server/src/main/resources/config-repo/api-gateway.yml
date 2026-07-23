@@ -28,7 +28,3 @@ springdoc:
         url: /portfolio/v3/api-docs
       - name: Price Stream Service
         url: /prices/v3/api-docs
-
-
-test:
-  my-name: api-default
