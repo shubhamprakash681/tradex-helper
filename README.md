@@ -164,6 +164,20 @@ This repository is now scaffolded as a Maven multi-module Spring Boot microservi
 - WebSocket endpoint: `ws://localhost:8080/ws`.
 - Broadcast topics: `/topic/market` for all ticks and `/topic/{symbol}` for individual stock ticks.
 
+## Completed: Milestone 4 – External Market Integration
+
+- `market-service` exposes market indices, gainers, losers, and trending APIs.
+- A configurable third-party provider can be enabled with `TRADEX_EXTERNAL_MARKET_*` settings.
+- Local fallback market data keeps the APIs usable without external API credentials.
+- Market responses are normalized and published to Kafka topic `tradex.market.prices` for the real-time stream.
+
+## Completed: Milestone 5 – Advanced Product Features
+
+- `notification-service` – watchlists, price alerts, notification history, Redis watchlist caching, and Kafka-based alert triggers running on port `8085`.
+- Watchlists are cached per user in Redis and invalidated on add/remove.
+- Price alerts subscribe to Kafka price ticks and create user notifications when targets are crossed.
+- Notification history is persisted per authenticated user.
+
 ## Milestone 1 APIs
 
 Gateway base URL: `http://localhost:8080`
@@ -201,6 +215,25 @@ Price streaming APIs:
 - `GET /api/prices/history`
 - `GET /api/prices/history?symbol=NIFTYBEES&limit=100`
 
+External market APIs:
+
+- `GET /api/market/indices`
+- `GET /api/market/gainers`
+- `GET /api/market/losers`
+- `GET /api/market/trending`
+
+Watchlist, alert, and notification APIs:
+
+- `GET /api/watchlist`
+- `POST /api/watchlist`
+- `DELETE /api/watchlist/{symbol}`
+- `POST /api/alerts`
+- `GET /api/alerts`
+- `DELETE /api/alerts`
+- `DELETE /api/alerts?id={id}`
+- `DELETE /api/alerts?symbol=NIFTYBEES`
+- `GET /api/notifications`
+
 ## API Documentation
 
 Swagger UI is enabled from the first milestone:
@@ -210,6 +243,7 @@ Swagger UI is enabled from the first milestone:
 - Market service OpenAPI: `http://localhost:8080/market/v3/api-docs`
 - Portfolio service OpenAPI: `http://localhost:8080/portfolio/v3/api-docs`
 - Price stream service OpenAPI: `http://localhost:8080/prices/v3/api-docs`
+- Notification service OpenAPI: `http://localhost:8080/notifications/v3/api-docs`
 - Eureka dashboard: `http://localhost:8761`
 - Config Server example: `http://localhost:8888/api-gateway/default`
 
@@ -233,6 +267,7 @@ mvn -pl auth-service spring-boot:run
 mvn -pl market-service spring-boot:run
 mvn -pl portfolio-service spring-boot:run
 mvn -pl price-stream-service spring-boot:run
+mvn -pl notification-service spring-boot:run
 mvn -pl api-gateway spring-boot:run
 ```
 

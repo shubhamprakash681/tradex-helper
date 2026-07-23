@@ -56,10 +56,10 @@ public class ExternalMarketService {
         List<MarketMoverResponse> gainers = selectedProvider.gainers();
         List<MarketMoverResponse> losers = selectedProvider.losers();
         List<MarketTrendResponse> trending = selectedProvider.trending();
-        publishIndices(indices);
-        publishMovers(gainers);
-        publishMovers(losers);
-        publishTrends(trending);
+        indices.forEach(marketPricePublisher::publishIndex);
+        gainers.forEach(marketPricePublisher::publishMover);
+        losers.forEach(marketPricePublisher::publishMover);
+        trending.forEach(marketPricePublisher::publishTrend);
         return new MarketSnapshot(indices, gainers, losers, trending);
     }
 

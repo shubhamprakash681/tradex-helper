@@ -32,6 +32,7 @@ public class JwtGatewayFilter implements GlobalFilter, Ordered {
             "/market/v3/api-docs",
             "/portfolio/v3/api-docs",
             "/prices/v3/api-docs",
+            "/notifications/v3/api-docs",
             "/ws");
 
     private final JwtTokenService jwtTokenService;
